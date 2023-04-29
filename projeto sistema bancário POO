@@ -11,11 +11,11 @@ class Cliente:
         transacao.registrar(conta)
 
     def adicionar_conta(self, conta):
-        self.contas.append(conta) # adiciona contas a lista de contas que no caso está com lista vazia []
+        self.contas.append(conta)
 
-class PessoaFisica(Cliente): # estende da classe cliente
+class PessoaFisica(Cliente): 
     def __init__(self, nome, data_nascimento, cpf, endereco):
-        super().__init__(endereco) # chama o contrutor da classe pai
+        super().__init__(endereco) 
         self.nome = nome
         self.data_nascimento = data_nascimento
         self.cpf = cpf
@@ -62,11 +62,11 @@ class Conta:
         elif valor > 0:
             self._saldo -= valor
             print("\n$$$$$$ Saque realizado com sucaesso! $$$$$$")
-            return True # identificar que a operaç~~ao que foi feita deu certo
+            return True 
 
         else:
             print("\nXXXXXX Operação falhou! O valor informado é inválido. XXXXXX")
-            return False # identifica que não deu certo a primeira parte 
+            return False 
 
     def depositar(self, valor):
         if valor > 0:
@@ -86,8 +86,8 @@ class ContaCorrente(Conta):
         self.limite_saques = limite_saques
 
     def sacar(self, valor):
-        numero_saques = len([transacao for transacao in self.historico.transacoes if transacao["tipo"] == Saque.__name__]) # Saque.__name__ é mesma coisa que "Saque"
-         # faz verificações sobre os limites de saques 
+        numero_saques = len([transacao for transacao in self.historico.transacoes if transacao["tipo"] == Saque.__name__]) 
+        
 
         excedeu_limite = valor > self.limite
         excedeu_saques = numero_saques >= self.limite_saques
@@ -99,7 +99,7 @@ class ContaCorrente(Conta):
              print("\nXXXXXX Operação falhou!! Número de saques excedido. XXXXXX")
         
         else:
-            return super().sacar(valor) # chama o sacar do método pai
+            return super().sacar(valor) 
 
         return False
 
@@ -121,7 +121,7 @@ class Historico:
     def adicionar_transacao(self, transacao):
         self._transacaoes.append(
             {
-                "tipo": transacao.__class__.__name__,  # nome da transação
+                "tipo": transacao.__class__.__name__,  
                 "valor":  transacao.valor,
                 "data": datetime.now().strftime
                 ("%d-%m-%Y  %H:%M:%s"),
@@ -142,8 +142,8 @@ class Saque(Transacao):
     def __init__(self, valor):
         self._valor = valor
 
-    @property # obrigatória colocar property porque extende a transação
-    def valor(self):
+    @property 
+     def valor(self):
         return self._valor
     
     def registrar(self, conta):
